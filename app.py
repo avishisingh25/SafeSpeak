@@ -33,26 +33,22 @@ if st.button("Analyze"):
 
             result = classifier(text)
 
-        label = result[0]["label"]
-score = result[0]["score"]
+            label = result[0]["label"]
+            score = result[0]["score"]
 
-st.subheader("Analysis Result")
+        st.subheader("Analysis Result")
 
-st.write(f"Model Label: {label}")
-st.write(f"Confidence: {score*100:.2f}%")
+        st.write(f"Model Label: {label}")
+        st.write(f"Confidence: {score*100:.2f}%")
 
-if label.lower() == "toxic" and score > 0.80:
+        if label.lower() == "toxic" and score > 0.80:
 
-    st.error("⚠️ Potential Hate Speech / Abuse Detected")
+            st.error("⚠️ Potential Hate Speech / Abuse Detected")
+            st.progress(int(score * 100))
+            st.write("Risk Level: High")
 
-    st.progress(int(score * 100))
+        else:
 
-    st.write("Risk Level: High")
-
-else:
-
-    st.success("✅ Safe Content")
-
-    st.progress(int(score * 100))
-
-    st.write("Risk Level: Low")
+            st.success("✅ Safe Content")
+            st.progress(int(score * 100))
+            st.write("Risk Level: Low")
